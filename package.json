@@ -1,0 +1,28 @@
+{
+  "name": "partykirche-de",
+  "version": "0.0.1",
+  "description": "This repository is the source of partykirche.de",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dist": "grunt",
+    "watch": "grunt watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apriljunge/partykirche-de.git"
+  },
+  "author": "apriljunge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apriljunge/partykirche-de/issues"
+  },
+  "homepage": "https://github.com/apriljunge/partykirche-de#readme",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0"
+  }
+}
