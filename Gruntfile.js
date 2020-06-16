@@ -1,3 +1,5 @@
+const sass = require('node-sass');
+
 module.exports = function config (grunt) {
     'use strict';
 
@@ -10,13 +12,12 @@ module.exports = function config (grunt) {
         },
         sass: {
             options: {
+                implementation: sass,
                 sourcemap: 'none',
             },
             dev: {
                 options: {
-                    style: 'expanded',
-                    lineNumbers: true,
-                    update: true
+                    outputStyle: 'expanded'
                 },
                 files: {
                     'docs/main.css': 'src/main.scss'
@@ -24,17 +25,16 @@ module.exports = function config (grunt) {
             },
             dist: {
                 options: {
-                    style: 'compressed'
+                    outputStyle: 'compressed'
                 },
                 files: {
-                'docs/main.css': 'src/main.scss'
+                    'docs/main.css': 'src/main.scss'
                 }
             }
         }
     });
     
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    require('load-grunt-tasks')(grunt);
     
     grunt.registerTask('default', ['sass:dist']);
     grunt.registerTask('dev', ['sass:dev']);
