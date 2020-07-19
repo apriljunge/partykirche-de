@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/apriljunge/partykirche-de#readme",
   "devDependencies": {
-    "grunt": "^1.2.0",
+    "grunt": "^1.2.1",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-sass": "^3.1.0",
     "load-grunt-tasks": "^5.1.0",
