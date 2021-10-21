@@ -1,35 +1,10 @@
 $animation-steps: 10;
 $shadow-count: 10;
 
-@function pride-gradient-stops() {
-  $pride-colors: (
-    #ff1e26,
-    #fe941e,
-    #ffff00,
-    #06bd00,
-    #001a98,
-    #760088,
-    #ffffff,
-    #fdafc7,
-    #75d5eb,
-    #603814,
-    #000000
-  );
-
-  $gradient-stops: ();
-
-  @each $color in $pride-colors {
-    $index: index($pride-colors, $color);
-    $gradient-stops: append($gradient-stops, $color  (($index - 1)  / length($pride-colors) * 100%), comma);
-    $gradient-stops: append($gradient-stops, $color  ($index / length($pride-colors) * 100%), comma);
-  }
-  @return $gradient-stops;
-}
-
 @function rainbow-shadow() {
   $value: ();
   $value: append($value, 0 0 1px #000, comma);
-  
+
   @for $i from 1 to $shadow-count + 1 {
     $degree: ($i / $shadow-count) * 360;
     $color: hsla($degree, 100%, 50%, 0.5);
@@ -70,39 +45,13 @@ h1 {
   }
 }
 
-body {
-  overflow: hidden;
-  &:focus-within {
-    &:before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -50%, 0);
-      height: 500vh;
-      width: 500vw;
-      background-image:
-              radial-gradient(circle at 50% 50%, white , transparent 6%),
-              conic-gradient(pride-gradient-stops());
-      animation: {
-        name: rotation;
-        duration: 60s;
-        iteration-count: infinite;
-        timing-function: linear;
-      }
-    }
-  }
+#canvas {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  inset: 0;
 }
 
 @keyframes rainbow-color {
   @include rainbow-animation();
-}
-
-@keyframes rotation {
-  0% {
-    transform: translate3d(-50%, -50%, 0) rotate(0deg);
-  }
-  100% {
-    transform: translate3d(-50%, -50%, 0) rotate(360deg);
-  }
 }
