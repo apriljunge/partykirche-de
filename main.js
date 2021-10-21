@@ -26,7 +26,8 @@ for (let i = 0; i < prideColors.length; i++) {
     const percent = i / (prideColors.length - 1);
 
     colorObj[prideColors[i]] = {
-        opacity: 1 - percent
+        opacity: 1 - percent,
+        len: 0.2
     }
 }
 
@@ -53,9 +54,13 @@ const drawRainbow = () => {
 
         ctx.beginPath();
         ctx.moveTo(0,0);
-        ctx.lineTo(longestSide, 0);
-        ctx.lineTo(longestSide, triangleHeight);
+        ctx.lineTo(longestSide * properties.len, 0);
+        ctx.lineTo(longestSide * properties.len, triangleHeight);
         ctx.fill();
+
+        if (properties.len < 1) {
+            properties.len += 0.01;
+        }
 
         ctx.rotate(2 * Math.PI / prideColors.length);
     }
