@@ -4,7 +4,7 @@ const ctx = canvas.getContext('2d');
 const pixelDensity = window.devicePixelRatio,
     h1 = document.querySelector('h1');
 
-let longestSide, triangleHeight,
+let longestSide, triangleHeight, mouseX, mouseY,
     animationRunning = false;
 
 const prideColors = [
@@ -20,6 +20,13 @@ const prideColors = [
     '#603814',
     '#000000'
 ];
+
+let faviconObject;
+fetch('favicon.svg')
+    .then(response => response.text())
+    .then(svg => {
+        faviconObject = new DOMParser().parseFromString(svg, 'image/svg+xml');
+    });
 
 const colorObj = {};
 for (let i = 0; i < prideColors.length; i++) {
@@ -64,6 +71,13 @@ const drawRainbow = () => {
 
         ctx.rotate(2 * Math.PI / prideColors.length);
     }
+
+    let data = ctx.getImageData(mouseX, mouseY, 1, 1).data;
+    if (faviconObject) {
+        faviconObject.getElementById('path').setAttribute('fill',`rgb(${data[0]},${data[1]},${data[2]})`);
+        let string = 'data:image/svg+xml,' + escape(new XMLSerializer().serializeToString(faviconObject.documentElement));
+        document.getElementById('favicon').setAttribute('href', string);
+    }
 }
 
 const animate = () => {
@@ -80,7 +94,12 @@ window.onresize = () => {
     resize();
 }
 
-h1.addEventListener('focus',  () => {
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.offsetX;
+    mouseY = e.offsetY;
+});
+
+h1.addEventListener('focus', () => {
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
     animationRunning = true;
@@ -92,6 +111,7 @@ h1.addEventListener('blur',  () => {
     animationRunning = false;
     ctx.restore();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('favicon').setAttribute('href', 'favicon.svg');
 });
 
 resize();
